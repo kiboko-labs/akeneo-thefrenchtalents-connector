@@ -1,0 +1,60 @@
+parameters:
+    kiboko_tft_connector.reader.dummy_item.class:                Kiboko\Component\Connector\Reader\DummyReader
+
+    kiboko_tft_connector.reader.adapter.product.class:           Kiboko\Component\TheFrenchTalentsConnector\Adapter\ProductAdapter
+
+    kiboko_tft_connector.reader.api.default.class:               Kiboko\Component\TheFrenchTalentsConnector\Reader\Api\DefaultReader
+    kiboko_tft_connector.reader.api.paged.class:                 Kiboko\Component\TheFrenchTalentsConnector\Reader\Api\PagedReader
+    kiboko_tft_connector.reader.api.product.class:               Kiboko\Component\TheFrenchTalentsConnector\Reader\Api\ProductReader
+    kiboko_tft_connector.reader.file.api.class:                  Kiboko\Component\TheFrenchTalentsConnector\Reader\ApiReader
+    kiboko_tft_connector.reader.file.variant.class:              Kiboko\Component\TheFrenchTalentsConnector\Reader\VariantReader
+    kiboko_tft_connector.reader.file.product.class:              Kiboko\Component\TheFrenchTalentsConnector\Reader\ProductReader
+    kiboko_tft_connector.reader.file.variant_group.class:        Kiboko\Component\TheFrenchTalentsConnector\Reader\VariantGroupReader
+    kiboko_tft_connector.reader.cache.variant_association.class: Kiboko\Component\TheFrenchTalentsConnector\Reader\VariantAssociationCacheReader
+
+services:
+    kiboko_tft_connector.reader.dummy_item:
+        class: '%kiboko_tft_connector.writer.dummy_item.class%'
+
+    kiboko_tft_connector.adapter.api.product:
+        class: '%kiboko_tft_connector.reader.adapter.product.class%'
+
+    kiboko_tft_connector.reader.api.product:
+        class: '%kiboko_tft_connector.reader.api.product.class%'
+        arguments:
+          - '@kiboko_tft_connector.adapter.api.product'
+          - '@kiboko_tft_connector.manager.supplier'
+
+    kiboko_tft_connector.reader.csv_variant:
+        parent: pim_connector.reader.file.csv_product
+
+    kiboko_tft_connector.reader.csv_product:
+        parent: pim_connector.reader.file.csv_product
+
+    kiboko_tft_connector.reader.csv_variant_group:
+        parent: pim_connector.reader.file.csv_product
+
+    kiboko_tft_connector.reader.file.api:
+        class: '%kiboko_tft_connector.reader.file.api.class%'
+        arguments:
+          - '@pim_base_connector.reader.file.csv'
+
+    kiboko_tft_connector.reader.file.variant:
+        class: '%kiboko_tft_connector.reader.file.variant.class%'
+        arguments:
+          - '@kiboko_tft_connector.reader.csv_variant'
+
+    kiboko_tft_connector.reader.file.product:
+        class: '%kiboko_tft_connector.reader.file.product.class%'
+        arguments:
+          - '@kiboko_tft_connector.reader.csv_product'
+
+    kiboko_tft_connector.reader.file.variant_group:
+        class: '%kiboko_tft_connector.reader.file.variant_group.class%'
+        arguments:
+          - '@kiboko_tft_connector.reader.csv_variant_group'
+
+    kiboko_tft_connector.reader.cache.association:
+        class: '%kiboko_tft_connector.reader.cache.variant_association.class%'
+        arguments:
+            - '@kiboko_tft_connector.cache.variant_sku'

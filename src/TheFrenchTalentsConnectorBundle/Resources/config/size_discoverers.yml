@@ -1,0 +1,101 @@
+parameters:
+    kiboko_tft_connector.size_mapper.class: Kiboko\Component\Connector\Discoverer\AttributeOptionDiscoverer
+
+services:
+    kiboko_tft_connector.size_mapper.cup_size_eu:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'cup_size_eu'
+
+    kiboko_tft_connector.size_mapper.chest_size_fr_es:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'chest_size_fr_es'
+
+    kiboko_tft_connector.size_mapper.belt_size_cm:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'belt_size_cm'
+
+    kiboko_tft_connector.size_mapper.main_size_iso:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'main_size_iso'
+
+    kiboko_tft_connector.size_mapper.top_size_fr:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'top_size_fr'
+
+    kiboko_tft_connector.size_mapper.hips_size_fr_flat:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'hips_size_fr_flat'
+
+    kiboko_tft_connector.size_mapper.hips_size_fr:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'hips_size_fr'
+
+    kiboko_tft_connector.size_mapper.dress_skirt_size_western_eu:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'dress_skirt_size_western_eu'
+
+    kiboko_tft_connector.size_mapper.shoe_size_eu:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'shoe_size_eu'
+
+    kiboko_tft_connector.size_mapper.shoe_size_uk:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'shoe_size_uk'
+
+    kiboko_tft_connector.size_mapper.shoe_size_us:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'shoe_size_us'
+
+    kiboko_tft_connector.size_mapper.hips_size_us:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'hips_size_us'
+
+    kiboko_tft_connector.size_mapper.hips_size_eu:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'hips_size_eu'
+
+    kiboko_tft_connector.size_mapper.suit_size_fr:
+        class: '%kiboko_tft_connector.size_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'suit_size_fr'

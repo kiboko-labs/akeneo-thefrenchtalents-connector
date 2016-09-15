@@ -1,0 +1,46 @@
+parameters:
+    kiboko_tft_connector.writer.dummy_item.class: Kiboko\Component\Connector\Writer\DummyWriter
+    kiboko_tft_connector.writer.api.class: Kiboko\Component\TheFrenchTalentsConnector\Writer\ApiWriter
+    kiboko_tft_connector.writer.product_association.class: Kiboko\Component\TheFrenchTalentsConnector\Writer\ProductAsssociationWriter
+    kiboko_tft_connector.writer.variant.class: Kiboko\Component\TheFrenchTalentsConnector\Writer\VariantWriter
+    kiboko_tft_connector.writer.product.class: Kiboko\Component\TheFrenchTalentsConnector\Writer\ProductWriter
+    kiboko_tft_connector.writer.variant_group.class: Kiboko\Component\TheFrenchTalentsConnector\Writer\VariantGroupWriter
+
+services:
+    kiboko_tft_connector.writer.dummy_item:
+        class: '%kiboko_tft_connector.writer.dummy_item.class%'
+
+    kiboko_tft_connector.writer.csv_api:
+        parent: pim_base_connector.writer.file.csv
+
+    kiboko_tft_connector.writer.csv_variant_association:
+        parent: pim_base_connector.writer.file.csv
+
+    kiboko_tft_connector.writer.csv_variant:
+        parent: pim_base_connector.writer.file.csv
+
+    kiboko_tft_connector.writer.csv_product:
+        parent: pim_base_connector.writer.file.csv
+
+    kiboko_tft_connector.writer.csv_variant_group:
+        parent: pim_base_connector.writer.file.csv
+
+    kiboko_tft_connector.writer.api:
+        class: '%kiboko_tft_connector.writer.api.class%'
+        arguments:
+          - '@kiboko_tft_connector.writer.csv_api'
+
+    kiboko_tft_connector.writer.variant:
+        class: '%kiboko_tft_connector.writer.variant.class%'
+        arguments:
+          - '@kiboko_tft_connector.writer.csv_variant'
+
+    kiboko_tft_connector.writer.product:
+        class: '%kiboko_tft_connector.writer.product.class%'
+        arguments:
+          - '@kiboko_tft_connector.writer.csv_product'
+
+    kiboko_tft_connector.writer.variant_group:
+        class: '%kiboko_tft_connector.writer.variant_group.class%'
+        arguments:
+          - '@kiboko_tft_connector.writer.csv_variant_group'

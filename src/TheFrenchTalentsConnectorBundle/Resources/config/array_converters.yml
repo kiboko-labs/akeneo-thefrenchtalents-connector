@@ -1,0 +1,170 @@
+parameters:
+#    kiboko_tft_connector.array_converter_chain.class: Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\ProductStandardConverter
+    kiboko_tft_connector.array_converter.flat.messed_up_size_variation_fixer.class: Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\MessedUpSizeVariationFixerArrayConverter
+
+    kiboko_tft_connector.array_converter.flat.product.class:                 Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\ProductStandardConverter
+    kiboko_tft_connector.array_converter.flat.product_to_variant_goup.class: Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\ProductToVariantGroupConverter
+
+    kiboko_tft_connector.array_converter.flat.product.media.downloader.class: Kiboko\Component\TheFrenchTalentsConnector\Downloader\MediaDownloader
+
+    kiboko_tft_connector.array_converter.flat.product.family.class:    Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\FamilyConverter
+    kiboko_tft_connector.array_converter.flat.product.media.class:     Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Attribute\MediaConverter
+    kiboko_tft_connector.array_converter.flat.product.color.class:     Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Attribute\ColorConverter
+    kiboko_tft_connector.array_converter.flat.product.material.class:  Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Attribute\MaterialConverter
+    kiboko_tft_connector.array_converter.flat.product.price.class:     Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Attribute\PriceConverter
+    kiboko_tft_connector.array_converter.flat.product.inventory.class: Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Attribute\InventoryConverter
+
+    kiboko_tft_connector.array_converter.flat.product.size.class:       Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Size\SizeConverter
+    kiboko_tft_connector.array_converter.flat.product.regex_size.class: Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Size\RegexSizeConverter
+    kiboko_tft_connector.array_converter.flat.product.bra_size.class:   Kiboko\Component\TheFrenchTalentsConnector\ArrayConverter\Size\BraSizeConverter
+
+services:
+#    kiboko_tft_connector.array_converter_chain:
+#        class: '%kiboko_tft_connector.array_converter_chain.class%'
+
+    kiboko_tft_connector.array_converter.flat.product.media.downloader:
+        class: %kiboko_tft_connector.array_converter.flat.product.media.downloader.class%
+
+    kiboko_tft_connector.array_converter.flat.product:
+        class: %kiboko_tft_connector.array_converter.flat.product.class%
+
+    kiboko_tft_connector.array_converter.flat.product_to_variant_goup:
+        class: %kiboko_tft_connector.array_converter.flat.product_to_variant_goup.class%
+        arguments:
+            - '@kiboko_tft_connector.cache.variant_axis'
+
+    kiboko_tft_connector.array_converter.flat.messed_up_size_variation_fixer:
+        class: %kiboko_tft_connector.array_converter.flat.messed_up_size_variation_fixer.class%
+        arguments:
+            - '@kiboko_tft_connector.array_converter.flat.product'
+
+    kiboko_tft_connector.array_converter.flat.product.family:
+        class: %kiboko_tft_connector.array_converter.flat.product.family.class%
+        arguments:
+            - '@service_container'
+            - '@kiboko_tft_connector.cache.variant_axis'
+            - '@kiboko_tft_connector.family.loader'
+            - 'families.yml'
+        tags:
+            - { name: 'kiboko_tft_connector.array_converter' }
+
+    kiboko_tft_connector.array_converter.flat.product.media:
+        class: %kiboko_tft_connector.array_converter.flat.product.media.class%
+        arguments:
+            - '@kiboko_tft_connector.array_converter.flat.product.media.downloader'
+        tags:
+            - { name: 'kiboko_tft_connector.array_converter' }
+
+    kiboko_tft_connector.array_converter.flat.product.color:
+        class: %kiboko_tft_connector.array_converter.flat.product.color.class%
+        arguments:
+            - '@kiboko_tft_connector.option_mapper.color'
+        tags:
+            - { name: 'kiboko_tft_connector.array_converter' }
+
+    kiboko_tft_connector.array_converter.flat.product.material:
+        class: %kiboko_tft_connector.array_converter.flat.product.material.class%
+        arguments:
+            - '@kiboko_tft_connector.option_mapper.material'
+        tags:
+            - { name: 'kiboko_tft_connector.array_converter' }
+
+    kiboko_tft_connector.array_converter.flat.product.price:
+        class: %kiboko_tft_connector.array_converter.flat.product.price.class%
+        tags:
+            - { name: 'kiboko_tft_connector.array_converter' }
+
+    kiboko_tft_connector.array_converter.flat.product.inventory:
+        class: %kiboko_tft_connector.array_converter.flat.product.inventory.class%
+        tags:
+            - { name: 'kiboko_tft_connector.array_converter' }
+
+    kiboko_tft_connector.array_converter.flat.product.bra_size:
+        class: '%kiboko_tft_connector.array_converter.flat.product.bra_size.class%'
+        arguments:
+            - 'cup_size_eu'
+            - 'chest_size_fr_es'
+            - '@kiboko_tft_connector.size_mapper.cup_size_eu'
+            - '@kiboko_tft_connector.size_mapper.chest_size_fr_es'
+
+    kiboko_tft_connector.array_converter.flat.product.main_size_iso:
+        class: '%kiboko_tft_connector.array_converter.flat.product.size.class%'
+        arguments:
+            - 'main_size_iso'
+            - '@kiboko_tft_connector.size_mapper.main_size_iso'
+
+    kiboko_tft_connector.array_converter.flat.product.top_size_fr:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'top_size_fr'
+            - '@kiboko_tft_connector.size_mapper.top_size_fr'
+            - '/T(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.hips_size_fr_flat:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'hips_size_fr_flat'
+            - '@kiboko_tft_connector.size_mapper.hips_size_fr_flat'
+            - '/T(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.hips_size_fr:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'hips_size_fr'
+            - '@kiboko_tft_connector.size_mapper.hips_size_fr'
+            - '/T(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.dress_skirt_size_western_eu:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'dress_skirt_size_western_eu'
+            - '@kiboko_tft_connector.size_mapper.dress_skirt_size_western_eu'
+            - '/T(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.belt_size_cm:
+        class: '%kiboko_tft_connector.array_converter.flat.product.size.class%'
+        arguments:
+            - 'belt_size_cm'
+            - '@kiboko_tft_connector.size_mapper.belt_size_cm'
+
+    kiboko_tft_connector.array_converter.flat.product.shoe_size_eu:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'shoe_size_eu'
+            - '@kiboko_tft_connector.size_mapper.shoe_size_eu'
+            - '/P(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.shoe_size_uk:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'shoe_size_uk'
+            - '@kiboko_tft_connector.size_mapper.shoe_size_uk'
+            - '/P(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.shoe_size_us:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'shoe_size_us'
+            - '@kiboko_tft_connector.size_mapper.shoe_size_us'
+            - '/P(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.hips_size_us:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'hips_size_us'
+            - '@kiboko_tft_connector.size_mapper.hips_size_us'
+            - '/T(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.hips_size_eu:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'hips_size_eu'
+            - '@kiboko_tft_connector.size_mapper.hips_size_eu'
+            - '/T(\d+)/'
+
+    kiboko_tft_connector.array_converter.flat.product.suit_size_fr:
+        class: '%kiboko_tft_connector.array_converter.flat.product.regex_size.class%'
+        arguments:
+            - 'suit_size_fr'
+            - '@kiboko_tft_connector.size_mapper.suit_size_fr'
+            - '/T(\d+)/'

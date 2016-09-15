@@ -1,0 +1,57 @@
+job_execution:
+    summary:
+        page: "Pages d'API chargées"
+        item: "Lignes chargées depuis l'API"
+kiboko_tft_connector:
+    jobs:
+        tft_api_import:
+            title: The French Talents - Import API
+            reader:
+                title: Connecteur API
+            steps:
+                api.title: "Récupération des données de l'API"
+                variant_filter.title: "Isolation des groupes de variantes"
+                product_filter.title: "Isolation des produits simples et variantes"
+                variant_group_filter.title: "Isolation des groupes de variantes"
+                variant_group_import.title: "Enregistrement des groupes de variantes"
+                variant_import.title: "Enregistrement des variantes"
+                product_import.title: "Enregistrement des produits simples"
+
+    steps:
+        reader:
+            apiPath:
+                label: URL de l'API
+                help: Cette URL est fournie par The French Talents pour se connecter l'API
+            apiKey:
+                label: Clé d'API
+                help: Cette clé est disponible dans votre interface client TFT, rubrique Mon compte
+            pageSize:
+                label: Elements par page
+                help: L'API TFT limite le nombre de produits à chaque appel (max 2000 fourni par l'API)
+            pageStart:
+                label: Première page à importer
+                help: L'API TFT est paginée, entrez la première page de TFT à traiter
+            pageEnd:
+                label: Dernière page
+                help: L'API TFT est paginée, entrez la dernière page de TFT à traiter
+            brandId:
+                label: Marque
+                help: Sélectionnez la marque qui sera chargée
+            mediaDownload:
+                label: Télécharger les médias
+                help: Les images media des produits seront téléchargées si l'option est activée
+            mediaFilePath:
+                label: Dossier temporaire des médias
+                help: Les images media des produits TFT seront enregistrées dans ce dossier temporaire
+            apiFilePath:
+                label: Fichier cache de l'API
+                help: Les données de l'API TFT seront enregistrées dans ce fichier temporaire
+            variantFilePath:
+                label: Fichier cache des variantes
+                help: Les données spécifiques aux variantes seront enregistrées dans ce fichier temporaire
+            productFilePath:
+                label: Fichier cache des produits
+                help: Les données spécifiques aux produits seront enregistrées dans ce fichier temporaire
+            variantGroupFilePath:
+                label: Fichier cache des groupes de variantes
+                help: Les données spécifiques aux groupes de variantes seront enregistrées dans ce fichier temporaire

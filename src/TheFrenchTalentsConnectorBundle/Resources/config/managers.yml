@@ -1,0 +1,6 @@
+parameters:
+    kiboko_tft_connector.manager.supplier.class: Kiboko\Component\TheFrenchTalentsConnector\Manager\SupplierManager
+
+services:
+    kiboko_tft_connector.manager.supplier:
+        class: '%kiboko_tft_connector.manager.supplier.class%'

@@ -1,0 +1,31 @@
+parameters:
+    kiboko_tft_connector.option_mapper.file_locator.class: Symfony\Component\Config\FileLocator
+    kiboko_tft_connector.option_mapper.loader.class:       Kiboko\Bundle\TheFrenchTalentsConnectorBundle\DependencyInjection\Config\YamlMappingLoader
+    kiboko_tft_connector.option_mapper.class:              Kiboko\Component\Connector\Discoverer\AttributeOptionDiscoverer
+
+services:
+    kiboko_tft_connector.option_mapper.file_locator:
+        class: '%kiboko_tft_connector.option_mapper.file_locator.class%'
+
+    kiboko_tft_connector.option_mapper.loader:
+        class: '%kiboko_tft_connector.option_mapper.loader.class%'
+        arguments:
+            - '@kiboko_tft_connector.option_mapper.file_locator'
+
+    kiboko_tft_connector.option_mapper.color:
+        class: '%kiboko_tft_connector.option_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'main_color'
+            - '@kiboko_tft_connector.option_mapper.loader'
+            - 'color.yml'
+
+    kiboko_tft_connector.option_mapper.material:
+        class: '%kiboko_tft_connector.option_mapper.class%'
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - 'material'
+            - '@kiboko_tft_connector.option_mapper.loader'
+            - 'material.yml'

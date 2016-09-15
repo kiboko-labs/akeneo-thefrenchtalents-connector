@@ -1,0 +1,184 @@
+connector:
+    name: The French Talents Connector
+    jobs:
+        tft_api_import:
+            title: kiboko_tft_connector.jobs.tft_api_import.title
+            type:  import
+            steps:
+                api:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.api.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.api.product
+                        processor: kiboko_tft_connector.processor.cleaner
+                        writer:    kiboko_tft_connector.writer.api
+                    parameters:
+                        batch_size: 10
+                variant_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.variant_filter
+                        writer:    kiboko_tft_connector.writer.variant
+                    parameters:
+                        batch_size: 10
+                product_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.product_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.product_filter
+                        writer:    kiboko_tft_connector.writer.product
+                    parameters:
+                        batch_size: 10
+                variant_group_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_group_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.variant_group_filter
+                        writer:    kiboko_tft_connector.writer.variant_group
+                    parameters:
+                        batch_size: 10
+                variant_group_import:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_group_import.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.variant_group
+                        processor: kiboko_tft_connector.processor.denormalization.variant_group.flat
+                        writer:    pim_connector.writer.doctrine.variant_group
+                    parameters:
+                        batch_size: 10
+                variant_import:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_import.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.variant
+                        processor: kiboko_tft_connector.processor.denormalization.variant.flat
+                        writer:    pim_connector.writer.doctrine.product
+                    parameters:
+                        batch_size: 10
+                product_import:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.product_import.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.product
+                        processor: kiboko_tft_connector.processor.denormalization.product.flat
+                        writer:    pim_connector.writer.doctrine.product
+                    parameters:
+                        batch_size: 10
+#                import_associations:
+#                    title:         kiboko_tft_connector.jobs.tft_api_import.import_associations.title
+#                    services:
+#                         reader:    kiboko_tft_connector.reader.file.variant
+#                         processor: pim_connector.processor.denormalization.product_association.flat
+#                         writer:    pim_connector.writer.doctrine.product_association
+#                    parameters:
+#                         batch_size: 10
+#                notify:
+#                    title: kiboko_tft_connector.jobs.tft_full_import.notify.title
+#                    class: "%acme_notifyconnector.step.notify.class%"
+#                    services:
+#                        handler: acme_notifyconnector.handler.curl
+        tft_api_import_cache:
+            title: kiboko_tft_connector.jobs.tft_api_import_cache.title
+            type:  import
+            steps:
+                api:
+                    title:         kiboko_tft_connector.jobs.tft_api_import_cache.steps.api.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.api.product
+                        processor: kiboko_tft_connector.processor.cleaner
+                        writer:    kiboko_tft_connector.writer.api
+                    parameters:
+                        batch_size: 10
+                variant_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import_cache.steps.variant_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.variant_filter
+                        writer:    kiboko_tft_connector.writer.variant
+                    parameters:
+                        batch_size: 10
+                product_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import_cache.steps.product_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.product_filter
+                        writer:    kiboko_tft_connector.writer.product
+                    parameters:
+                        batch_size: 10
+                variant_group_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import_cache.steps.variant_group_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.variant_group_filter
+                        writer:    kiboko_tft_connector.writer.variant_group
+                    parameters:
+                        batch_size: 10
+        tft_api_cache_import:
+            title: kiboko_tft_connector.jobs.tft_api_import.title
+            type:  import
+            steps:
+                api:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.api.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.api.product
+                        processor: kiboko_tft_connector.processor.cleaner
+                        writer:    kiboko_tft_connector.writer.api
+                    parameters:
+                        batch_size: 10
+                variant_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.variant_filter
+                        writer:    kiboko_tft_connector.writer.variant
+                    parameters:
+                        batch_size: 10
+                product_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.product_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.product_filter
+                        writer:    kiboko_tft_connector.writer.product
+                    parameters:
+                        batch_size: 10
+                variant_group_filter:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_group_filter.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.api
+                        processor: kiboko_tft_connector.processor.variant_group_filter
+                        writer:    kiboko_tft_connector.writer.variant_group
+                    parameters:
+                        batch_size: 10
+        tft_cached_product_import:
+            title: kiboko_tft_connector.jobs.tft_cached_product_import.title
+            type:  import
+            steps:
+                product_import:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.product_import.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.product
+                        processor: kiboko_tft_connector.processor.denormalization.product.flat
+                        writer:    pim_connector.writer.doctrine.product
+                    parameters:
+                        batch_size: 10
+        tft_cached_variant_import:
+            title: kiboko_tft_connector.jobs.tft_cached_variant_import.title
+            type:  import
+            steps:
+                variant_import:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_import.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.variant
+                        processor: kiboko_tft_connector.processor.denormalization.variant.flat
+                        writer:    pim_connector.writer.doctrine.product
+                    parameters:
+                        batch_size: 10
+        tft_cached_variant_group_import:
+            title: kiboko_tft_connector.jobs.tft_cached_variant_group_import.title
+            type:  import
+            steps:
+                variant_group_import:
+                    title:         kiboko_tft_connector.jobs.tft_api_import.steps.variant_group_import.title
+                    services:
+                        reader:    kiboko_tft_connector.reader.file.variant_group
+                        processor: kiboko_tft_connector.processor.denormalization.variant_group.flat
+                        writer:    pim_connector.writer.doctrine.variant_group
+                    parameters:
+                        batch_size: 10

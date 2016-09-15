@@ -1,0 +1,44 @@
+{
+    "name": "kiboko/akeneo-thefrenchtalents-connector",
+    "description": "Connect TheFrenchTalents.com service on your Akeneo instance",
+    "homepage": "http://kiboko.fr",
+    "keywords": ["akeneo", "the french talents", "thefrenchtalents.com"],
+    "type": "symfony-bundle",
+    "license": "LGPL",
+    "authors": [
+        {
+            "name": "Grégory Planchat",
+            "email": "gregory@kiboko.fr"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/pim-community-dev.git",
+            "branch": "master"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/platform.git",
+            "branch": "master"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kiboko\\Component\\TheFrenchTalentsConnector\\": "src/TheFrenchTalentsConnector",
+            "Kiboko\\Bundle\\TheFrenchTalentsConnectorBundle\\": "src/TheFrenchTalentsConnectorBundle"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "akeneo/pim-community-dev": "~1.5",
+        "kiboko/akeneo-connector-base": "~1.1"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    }
+}

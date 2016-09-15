@@ -1,0 +1,10 @@
+parameters:
+    kiboko_tft_connector.cache.variant_sku.class: Doctrine\Common\Collections\ArrayCollection
+    kiboko_tft_connector.cache.variant_axis.class: Doctrine\Common\Collections\ArrayCollection
+
+services:
+    kiboko_tft_connector.cache.variant_sku:
+        class: '%kiboko_tft_connector.cache.variant_sku.class%'
+
+    kiboko_tft_connector.cache.variant_axis:
+        class: '%kiboko_tft_connector.cache.variant_axis.class%'

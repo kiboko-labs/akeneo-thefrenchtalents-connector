@@ -1,0 +1,64 @@
+parameters:
+    kiboko_tft_connector.processor.dummy_item.class: Kiboko\Component\Connector\Processor\DummyProcessor
+    kiboko_tft_connector.processor.cleaner.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\CleanerProcessor
+    kiboko_tft_connector.processor.variant_filter.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\VariantFilterProcessor
+    kiboko_tft_connector.processor.product_filter.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\ProductFilterProcessor
+    kiboko_tft_connector.processor.variant_group_filter.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\VariantGroupFilterProcessor
+    kiboko_tft_connector.processor.variant_association.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\VariantAssociationProcessor
+    kiboko_tft_connector.processor.denormalization.product.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\Denormalization\ProductCleanerProcessor
+    kiboko_tft_connector.processor.denormalization.variant.class: Kiboko\Component\TheFrenchTalentsConnector\Processor\Denormalization\ProductCleanerProcessor
+
+services:
+    kiboko_tft_connector.processor.dummy_item:
+        class: '%kiboko_tft_connector.processor.dummy_item.class%'
+
+    kiboko_tft_connector.processor.cleaner:
+        class: '%kiboko_tft_connector.processor.cleaner.class%'
+        arguments:
+            - '@kiboko_tft_connector.array_converter.flat.messed_up_size_variation_fixer'
+            - '@kiboko_tft_connector.cache.variant_sku'
+
+    kiboko_tft_connector.processor.variant_filter:
+        class: '%kiboko_tft_connector.processor.variant_filter.class%'
+        arguments:
+            - '@kiboko_tft_connector.cache.variant_sku'
+
+    kiboko_tft_connector.processor.product_filter:
+        class: '%kiboko_tft_connector.processor.product_filter.class%'
+        arguments:
+            - '@kiboko_tft_connector.cache.variant_sku'
+
+    kiboko_tft_connector.processor.variant_group_filter:
+        class: '%kiboko_tft_connector.processor.variant_group_filter.class%'
+        arguments:
+            - '@kiboko_tft_connector.cache.variant_sku'
+            - '@kiboko_tft_connector.array_converter.flat.product_to_variant_goup'
+            - '@pim_catalog.repository.group'
+            - '@pim_catalog.repository.product'
+
+    kiboko_tft_connector.processor.denormalization.product.flat:
+        class: %kiboko_tft_connector.processor.denormalization.product.class%
+        arguments:
+            - '@pim_connector.processor.denormalization.product.flat'
+            - '@pim_catalog.repository.product'
+            - '@akeneo_storage_utils.doctrine.object_detacher'
+
+    kiboko_tft_connector.processor.denormalization.variant.flat:
+        class: %kiboko_tft_connector.processor.denormalization.variant.class%
+        arguments:
+            - '@pim_connector.processor.denormalization.product.flat'
+            - '@pim_catalog.repository.product'
+            - '@akeneo_storage_utils.doctrine.object_detacher'
+
+    kiboko_tft_connector.processor.denormalization.variant_group.flat:
+        class: %pim_connector.processor.denormalization.variant_group.class%
+        arguments:
+            - '@pim_connector.array_converter.flat.variant_group'
+            - '@pim_catalog.repository.group'
+            - '@pim_catalog.factory.group'
+            - '@pim_catalog.updater.variant_group'
+            - '@pim_catalog.validator.product'
+
+    kiboko_tft_connector.processor.variant_association:
+        class: '%kiboko_tft_connector.processor.variant_association.class%'
+

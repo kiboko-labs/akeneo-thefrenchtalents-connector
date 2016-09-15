@@ -1,0 +1,12 @@
+parameters:
+    kiboko_tft_connector.family.file_locator.class: Symfony\Component\Config\FileLocator
+    kiboko_tft_connector.family.loader.class: Kiboko\Bundle\TheFrenchTalentsConnectorBundle\DependencyInjection\Config\YamlFamiliesLoader
+
+services:
+    kiboko_tft_connector.family.file_locator:
+        class: '%kiboko_tft_connector.family.file_locator.class%'
+
+    kiboko_tft_connector.family.loader:
+        class: '%kiboko_tft_connector.family.loader.class%'
+        arguments:
+            - '@kiboko_tft_connector.family.file_locator'

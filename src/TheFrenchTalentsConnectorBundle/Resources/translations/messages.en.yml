@@ -1,0 +1,57 @@
+job_execution:
+    summary:
+        page: "Pages loaded from the API"
+        item: "Lines loaded from the API"
+kiboko_tft_connector:
+    jobs:
+        tft_api_import:
+            title: The French Talents - API import
+            reader:
+                title: API connector
+            steps:
+                api.title: "Fetching data from the API"
+                variant_filter.title: "Variants filtering"
+                product_filter.title: "Simple products filtering"
+                variant_group_filter.title: "Variant groups filtering"
+                variant_group_import.title: "Variant groups import"
+                variant_import.title: "Variant import"
+                product_import.title: "Simple products import"
+
+    steps:
+        reader:
+            apiPath:
+                label: API URL
+                help: This URL is provided by The French Talents to gain access to the API
+            apiKey:
+                label: API key
+                help: This API key is generated in your TFT back-office
+            pageSize:
+                label: Page size
+                help: The API is paginated, specify here the maximum page size (max 2000 provided by the API)
+            pageStart:
+                label: First page to import
+                help: The API is paginated, specify here the first page to load
+            pageEnd:
+                label: Last page to import
+                help: The API is paginated, specify here the last page to load
+            brandId:
+                label: Supplier
+                help: You can filter the loade products per supplier, load all if empty
+            mediaDownload:
+                label: Load medias
+                help: Check if you also want to load the medias
+            mediaFilePath:
+                label: Medias temporary folder
+                help: Medias coming from TFT will be stored temporarily in this folder
+            apiFilePath:
+                label: API cache file path
+                help: Datas coming from TFT will be temporarily stored in this file
+            variantFilePath:
+                label: Variants cache file path
+                help: Variant-specific data will be temporarily stored in this file
+            productFilePath:
+                label: Simple products cache file path
+                help: Simple product-specific data will be temporarily stored in this file
+            variantGroupFilePath:
+                label: Variant groups cache file path
+                help: Variant group-specific data will be temporarily stored in this file
